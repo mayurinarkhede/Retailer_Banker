@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+
+    <!-- css file -->
+    <link rel="stylesheet" href="./customers.css" />
+
+    <!-- Gloria Hallelujah (Google Font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- bootstrap script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+      integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+      integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+    <title>Bankist</title>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <img
+        src="logo copy.png"
+        alt="Bankist logo"
+        class="nav__logo"
+        id="logo"
+        designer="Jonas"
+        data-version-number="3.0"
+      />
+      <ul class="nav__links">
+        <li class="nav__item">
+          <a class="nav__link" href="./index.html">Home</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="./customers.html">Customers</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link" href="#">Money Handler</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <p class="display-1">Transfer Money</p>
+      <!-- Input Section -->
+      <form class="row" id="add-transfer">
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            name="sender"
+            placeholder="Sender Bank ID"
+            aria-label="Sender Bank ID"
+          />
+        </div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            name="receiver"
+            placeholder="Receiver Bank ID"
+            aria-label="Receiver Bank ID"
+          />
+        </div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            name="amount"
+            placeholder="Amount"
+            aria-label="Amount"
+          />
+        </div>
+        <div class="col">
+          <button
+            type="submit"
+            class="rounded-pill movements__type movements__type--deposit"
+            style="text-align: center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-coin"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+              />
+            </svg>
+            Pay
+          </button>
+        </div>
+      </form>
+      <br />
+
+      
+
+      <!-- Transfer Record -->
+      <ul class="transfers list-unstyled"></ul>
+    </div>
+
+    <!-- Toast Message -->
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      class="d-flex justify-content-center align-items-center w-100"
+    >
+      <div
+        class="toast align-items-center text-white bg-primary border-0"
+        id="liveToast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">Transaction Succesful</div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIRESTORE DATABASE -->
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyAiEn0wMKPkc0AglXr6vUzehq_ExWwvghM",
+    authDomain: "grip-project-30601.firebaseapp.com",
+    projectId: "grip-project-30601",
+    storageBucket: "grip-project-30601.appspot.com",
+    messagingSenderId: "14388384149",
+    appId: "1:14388384149:web:c4a0a2a36675086e7f269c",
+    measurementId: "G-4LP8X0WT2V"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      // Refence to database
+      const db = firebase.firestore();
+      db.settings({ timestampsInSnapshot: true });
+    </script>
+
+    <!-- Js file -->
+    <script src="./transfer.js"></script>
+  </body>
+</html>
